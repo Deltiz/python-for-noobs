@@ -1,0 +1,31 @@
+name: Run Python Script
+
+on:
+  push:  # Kör workflowen vid en push till repot
+    branches:
+      - main  # Kör endast när pushen sker till main-branchen
+  workflow_dispatch:  # Gör det möjligt att köra workflowen manuellt
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest  # Använder en virtuell Ubuntu-maskin
+
+    steps:
+    - name: Checkout repository  # Steg för att klona repot till den virtuella maskinen
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Sätter upp Python-miljön
+      with:
+        python-version: '3.x'  # Byt till den version du använder
+
+    - name: Install dependencies (if needed)
+      run: |
+        pip install --upgrade pip  # Uppdatera pip
+        # pip install -r requirements.txt  # Avkommentera om du har en requirements.txt
+
+    - name: Run python1.py script
+      run: python python_training/python1.py  # Navigerar och kör python1.py
+
+    - name: Run test.py script
+      run: python python_training/test.py  # Navigerar och kör test.py
